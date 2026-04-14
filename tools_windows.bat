@@ -4,6 +4,7 @@ cls
 title Tools Windows
 :main
 cls
+echo  _____________________________________________________________________________________
 echo "                                                                                     "
 echo "   _________  ________  ___       ___       ________                                 "                           
 echo "  |\___   ___\\   __  \|\  \     |\  \     |\   ____\                                "                   
@@ -13,7 +14,6 @@ echo "        \ \  \ \ \  \\\  \ \  \____\ \  \____\|____|\  \                  
 echo "         \ \__\ \ \_______\ \_______\ \_______\____\_\  \                            "                         
 echo "          \|__|  \|_______|\|_______|\|_______|\_________\                           "                         
 echo "                                              \|_________|                           "                                                                                                    
-echo "                                                                                     "
 echo "   ___       __   ___  ________   ________  ________  ___       __   ________        "     
 echo "  |\  \     |\  \|\  \|\   ___  \|\   ___ \|\   __  \|\  \     |\  \|\   ____\       "    
 echo "  \ \  \    \ \  \ \  \ \  \\ \  \ \  \_|\ \ \  \|\  \ \  \    \ \  \ \  \___|_      " 
@@ -24,21 +24,25 @@ echo "      \|____________|\|__|\|__| \|__|\|_______|\|_______|\|____________|\_
 echo "                                                                       \|_________|  "
 echo "                                                                                     "
 echo "     By: https://github.com/fabioadler   |  Name: Fábio Adler de L. Gomes            "
+echo "     Update: V0.2                                                                    "
 echo "                                                                                     "
-echo "                                                                                     "
-echo "  1) Backup drivers Windows.                                                         "
-echo "  2) Restaurar Backup Drivers Windows.                                               "
-echo "  3) Reiniciar the PC into BIOS.                                                     "
-echo "  4) Install gpedit (group policy editor).                                           "
-echo "  5) Bypass criação usuario.                                                         "
-echo "  6) Ver BitLocker status.                                                           "
-echo "  7) Desabilitar BitLocker on a disk.                                                "
-echo "  8) Remover AI do Windows.                                                          "
-echo "  9) Ativiar Windows e Office.                                                       "
+echo "  1)  Backup drivers Windows                                                         "
+echo "  2)  Restaurar Backup Drivers Windows.                                              "
+echo "  3)  Reiniciar the PC into BIOS.                                                    "
+echo "  4)  Install gpedit (group policy editor).                                          "
+echo "  5)  Bypass criação usuario.                                                        "
+echo "  6)  Ver BitLocker status.                                                          "
+echo "  7)  Desabilitar BitLocker on a disk.                                               "
+echo "  8)  Remover AI do Windows.                                                         "
+echo "  9)  Ativiar Windows e Office.                                                      "
 echo "  10) Instalar o winget.                                                             "
+echo "  11) Ver status da compressão de memoria.                                           "
+echo "  12) Ativar compressão de memoria.                                                  "
+echo "  13) Desativar compressão de memoria                                                "
 echo "                                                                                     "
 echo "  0) Fechar.                                                                         "
-echo "                                                                                     "                                                                     "
+echo "                                                                                     "
+echo "_____________________________________________________________________________________"
 echo(
 echo(
 set /p opcao=Digite o numero da opção desejada: 
@@ -89,7 +93,7 @@ if "%opcao%" == "0" (
     dir /b C:\Windows\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientTools-Package~3*.mum >>List.txt
     for /f %%i in ('findstr /i . List.txt 2^>nul') do dism /online /norestart /add-package:"C:\Windows\servicing\Packages\%%i"
     echo(
-    echo Finalizado.
+    echo Finalizado
     pause 
     goto main
 ) else if "%opcao%" == "5" (
@@ -124,6 +128,22 @@ if "%opcao%" == "0" (
 ) else if "%opcao%" == "10" (
     echo Iniciando...
     powershell -ExecutionPolicy Bypass -Command "Install-Module -Name Microsoft.WinGet.Client"
+    cls
+    goto main
+) else if "%opcao%" == "11" (
+    echo Iniciando...
+    powershell -ExecutionPolicy Bypass -Command "Get-MMAgent"
+    echo(
+    pause
+    goto main
+) else if "%opcao%" == "12" (
+    echo Iniciando...
+    powershell -ExecutionPolicy Bypass -Command "Enable-MMAgent -mc"
+    cls
+    goto main
+) else if "%opcao%" == "13" (
+    echo Iniciando...
+    powershell -ExecutionPolicy Bypass -Command "Disable-MMAgent -mc"
     cls
     goto main
 ) else (
