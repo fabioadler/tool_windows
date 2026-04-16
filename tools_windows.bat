@@ -38,7 +38,12 @@ echo "  9)  Ativiar Windows e Office.                                           
 echo "  10) Instalar o winget.                                                             "
 echo "  11) Ver status da compressão de memoria.                                           "
 echo "  12) Ativar compressão de memoria.                                                  "
-echo "  13) Desativar compressão de memoria                                                "
+echo "  13) Desativar compressão de memoria.                                               "
+echo "  14) Desativar controle inteligente de aplicativo.                                  "
+echo "  15) Ativar controle inteligente de aplicativo.                                     "
+echo "  16) Criar ponto de restauração.                                                    "
+echo "  17) Christitus ferramenta windows.                                                 "
+echo "  18) Winhance ferramenta windows.                                                   "
 echo "                                                                                     "
 echo "  0) Fechar.                                                                         "
 echo "                                                                                     "
@@ -144,6 +149,34 @@ if "%opcao%" == "0" (
 ) else if "%opcao%" == "13" (
     echo Iniciando...
     powershell -ExecutionPolicy Bypass -Command "Disable-MMAgent -mc"
+    cls
+    goto main
+) else if "%opcao%" == "14" (
+    echo Iniciando...
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v VerifiedAndReputablePolicyState /t REG_DWORD /d 0 /f
+    powershell -ExecutionPolicy Bypass -Command "Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy -Name VerifiedAndReputablePolicyState -Value 0"
+    cls
+    goto main
+) else if "%opcao%" == "15" (
+    echo Iniciando...
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v VerifiedAndReputablePolicyState /t REG_DWORD /d 1 /f
+    powershell -ExecutionPolicy Bypass -Command "Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy -Name VerifiedAndReputablePolicyState -Value 1"
+    cls
+    goto main
+) else if "%opcao%" == "16" (
+    echo Iniciando...
+    set /p ponto=Digite o nome do ponto de recuperação:
+    Wmic.exe /Namespace:\\root\default Path SystemRestore Call CreateRestorePoint "%ponto%", 100, 7
+    pause
+    goto main
+) if "%opcao%" == "17" (
+    echo Iniciando...
+    powershell -ExecutionPolicy Bypass -Command "irm christitus.com/win | iex"
+    cls
+    goto main
+) if "%opcao%" == "18" (
+    echo Iniciando...
+    powershell -ExecutionPolicy Bypass -Command "irm https://get.winhance.net | iex"
     cls
     goto main
 ) else (
