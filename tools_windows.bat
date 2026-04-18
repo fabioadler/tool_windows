@@ -25,7 +25,7 @@ echo "      \|____________|\|__|\|__| \|__|\|_______|\|_______|\|____________|\_
 echo "                                                                       \|_________|  "
 echo "                                                                                     "
 echo "     By: https://github.com/fabioadler   |  Name: Fábio Adler de L. Gomes            "
-echo "     Update: V0.2.2                                                                  "
+echo "     Update: V0.3                                                                  "
 echo "                                                                                     "
 echo "  1)  Backup drivers Windows                                                         "
 echo "  2)  Restaurar Backup Drivers Windows.                                              "
@@ -47,6 +47,8 @@ echo "  17) Criar ponto de restauração.                                       
 echo "  18) Desabilitar limitação de criação de ponto de restauração.                      "
 echo "  19) Christitus ferramenta windows.                                                 "
 echo "  20) Winhance ferramenta windows.                                                   "
+echo "  21) Adicionar usuario.                                                             "
+echo "  22) Remover usuario.                                                               "
 echo "                                                                                     "
 echo "  0) Fechar.                                                                         "
 echo "                                                                                     "
@@ -219,6 +221,27 @@ if "%opcao%" == "0" (
 ) else if "%opcao%" == "20" (
     echo Iniciando...
     powershell -ExecutionPolicy Bypass -Command "irm https://get.winhance.net | iex"
+    cls
+    goto main
+) else if "%opcao%" == "21" (
+    echo Iniciando...
+    set /p nome_user=Digite o nome do usuario: 
+    set /p tp_usuario="O usuario vai ser admin (y/n): "
+    net user %nome_user% 123 /active:yes /expires:never /add
+    if "%tp_usuario%" == "y" (
+        net localgroup administrators %nome_usuario% /add
+    ) else if "%tp_usuario%" == "Y" (
+        net localgroup administrators %nome_usuario% /add
+    )
+    echo O usuario %nome_user% foi criado com as senha 123
+    pause
+    cls
+    goto main
+) else if "%opcao%" == "22" (
+    echo Iniciando...
+    set /p nome_user=Digite o nome do usuario: 
+    net user %nome_user% /delete
+    pause
     cls
     goto main
 ) else (
